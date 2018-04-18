@@ -148,7 +148,7 @@
         toggle = true
       }
       else {
-        setNodesOpacity(1)
+        setNodesOpacity(1, 300)
         toggle = false
       }
     })
@@ -156,21 +156,29 @@
 
   function showRelatingTables(tableName, tableNode) {
     tableName = tableNode.parentElement.parentElement.attributes.tableName.nodeValue;
-    setNodesOpacity(.5);
+    setNodesOpacity(.5,200);
 
     let node = document.querySelectorAll(`table[tableName=${tableName}]`)[0].style.opacity = '1';
+    let node1 = document.querySelectorAll(`table[tableName=${tableName}]`)[0].style.width = '450';
+    let node2 = document.querySelectorAll(`table[tableName=${tableName}]`)[0].style.zIndex = '10';
+    let node3 = document.querySelectorAll(`table[tableName=${tableName}]`)[0].style.fontSize = '20';
     let table = data[tableName]
     for (let row in table) {
       let obj = table[row];
 
       let relation = obj.relation;
+      if (relation !== false) document.querySelectorAll(`table[tableName=${relation.model}]`)[0].style.width = '450';
+      if (relation !== false) document.querySelectorAll(`table[tableName=${relation.model}]`)[0].style.fontSize = '20';
       if (relation !== false) document.querySelectorAll(`table[tableName=${relation.model}]`)[0].style.opacity = '1';
     }
   }
   //this forEach loop not functionning with new version of object passed
-  function setNodesOpacity(units) {
+  function setNodesOpacity(units, width) {
     Array.prototype.forEach.call(tables, node => {
       node.style.opacity = `${units}`;
+      node.style.width = `${width}`;
+      node.style.fontSize = `${13}`;
+      console.log(node);
     });
   }
 
